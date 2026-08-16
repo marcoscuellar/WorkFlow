@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-accent="volt">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,81 +9,89 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root{--black:#090b10;--surface:#11151d;--raised:#151b25;--line:#242c39;--white:#fff;--ink:#f8fafc;--body:#d5deea;--slate:#99a8ba;--dim:#68778a;--em:#4da3ff;--em-rgb:77,163,255;--on-em:#07111d}
+    :root{--black:#090b10;--surface:#11151d;--raised:#151b25;--line:#242c39;--white:#fff;--ink:#f8fafc;--body:#d5deea;--slate:#99a8ba;--dim:#7b8b9e;--em:#4da3ff;--em-rgb:77,163,255;--on-em:#07111d}
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--black);color:var(--white);font-family:Archivo,system-ui,sans-serif;font-weight:500;line-height:1.55;overflow-x:hidden}
     button{font:inherit;cursor:pointer}.mono{font:500 10px/1.8 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+    :focus-visible{outline:2px solid var(--em);outline-offset:3px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
     .mast{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);background:rgba(11,12,16,.72);backdrop-filter:blur(18px)}
     .mast-in{max-width:1200px;margin:auto;padding:13px 32px;display:flex;align-items:center;gap:20px}.brand{font-weight:900}.brand i{font-style:normal;color:var(--em)}
     .nav{margin-left:auto;display:flex;gap:4px}.nav a{color:var(--dim);text-decoration:none;padding:7px 10px;font:500 10px "IBM Plex Mono",monospace}.nav a:hover{color:var(--white)}
-    .cta,.run{border:0;background:var(--em);color:var(--on-em);padding:10px 15px;font:700 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;transition:transform .2s}.cta:hover,.run:hover{transform:scale(1.035)}
+    .cta,.run{border:0;background:var(--em);color:var(--on-em);padding:10px 15px;font:700 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .2s}.cta:hover,.run:hover{transform:scale(1.035)}
     .page{max-width:1200px;margin:auto;padding:0 32px}.hero{min-height:52vh;padding:94px 0 70px;display:flex;flex-direction:column;justify-content:center}
     .kicker{display:flex;align-items:center;gap:18px}.kicker:after{content:"";height:1px;background:var(--line);flex:1}
-    h1{font-size:clamp(58px,10vw,142px);line-height:.84;letter-spacing:-.06em;text-transform:uppercase;margin-top:28px;font-weight:900}
+    h1{font-size:clamp(40px,10vw,142px);line-height:.84;letter-spacing:-.06em;text-transform:uppercase;margin-top:28px;font-weight:900}
     h1 .outline{color:transparent;-webkit-text-stroke:1.5px #495162}h1 .v,.v{color:var(--em)}
     .hero-foot{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;margin-top:48px}.hero-foot .lead{font-size:clamp(19px,2.4vw,27px);line-height:1.3;font-weight:700}.hero-foot p{color:var(--slate);max-width:50ch}.hero-foot strong{color:var(--body)}
-    section{border-top:1px solid var(--line);padding:92px 0}.sec{display:grid;grid-template-columns:210px 1fr;gap:60px}.rail .inner{position:sticky;top:92px}.no{font-size:clamp(46px,6vw,72px);line-height:1;font-weight:900;color:transparent;-webkit-text-stroke:1.2px #303646}.rt{margin-top:15px}
-    h2{font-size:clamp(38px,6vw,70px);line-height:.92;letter-spacing:-.055em;text-transform:uppercase;font-weight:900;max-width:850px}.lede{color:var(--slate);font-size:17px;max-width:61ch;margin:22px 0 36px}.lede strong{color:var(--white)}
+    section{border-top:1px solid var(--line);padding:92px 0;scroll-margin-top:64px}.sec{display:grid;grid-template-columns:210px 1fr;gap:60px}.rail .inner{position:sticky;top:92px}.no{font-size:clamp(46px,6vw,72px);line-height:1;font-weight:900;color:transparent;-webkit-text-stroke:1.2px #303646}.rt{margin-top:15px}
+    h2{font-size:clamp(30px,6vw,70px);line-height:.92;letter-spacing:-.055em;text-transform:uppercase;font-weight:900;max-width:900px}.lede{color:var(--slate);font-size:17px;max-width:61ch;margin:22px 0 36px}.lede strong{color:var(--white)}
     .stage{border:1px solid var(--line);background:linear-gradient(145deg,rgba(21,24,33,.92),rgba(10,11,15,.98));min-height:610px;position:relative;overflow:hidden;box-shadow:0 34px 90px -40px #000}
     .stage:before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-180px;top:-210px;background:rgba(var(--em-rgb),.07);filter:blur(35px)}
     .chaos{position:absolute;inset:0;transition:opacity .7s,filter .7s,transform .7s}.chaos.out{opacity:0;filter:blur(12px);transform:scale(1.03);pointer-events:none}
-    .fragment{position:absolute;color:#7f8999;font:500 clamp(10px,1.2vw,13px) "IBM Plex Mono",monospace;letter-spacing:.06em;white-space:nowrap;border:1px solid rgba(148,163,184,.13);background:rgba(12,14,19,.75);padding:9px 12px;animation:drift var(--dur) ease-in-out infinite alternate;transform:rotate(var(--rot))}
-    @keyframes drift{to{translate:var(--dx) var(--dy);opacity:.35}}.fragment.hot{color:var(--em);border-color:rgba(var(--em-rgb),.25);box-shadow:0 0 25px rgba(var(--em-rgb),.08)}
-    .resolve-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,transparent 0,rgba(11,12,16,.18) 60%)}
     .resolve{border:1px solid rgba(var(--em-rgb),.45);background:rgba(11,12,16,.9);color:var(--em);padding:14px 20px;box-shadow:0 0 50px rgba(var(--em-rgb),.16);font:700 10px "IBM Plex Mono",monospace;letter-spacing:.13em;text-transform:uppercase}
     .scramble-scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(30px,7vw,78px)}
     .scramble-kicker{margin-bottom:22px;color:var(--em)}
-    .scramble-copy{max-width:850px;color:var(--ink);font-size:clamp(31px,5.5vw,72px);font-weight:900;line-height:.94;letter-spacing:-.045em;text-transform:uppercase;min-height:3.8em;font-variant-numeric:tabular-nums}
-    .scramble-copy .soft{color:var(--slate)}
-    .scramble-action{display:flex;align-items:center;gap:18px;margin-top:34px}.scramble-action .resolve{position:static}.scramble-note{color:var(--dim)}
+    .scramble-copy{max-width:100%;color:var(--ink);font-size:clamp(26px,5.5vw,72px);font-weight:900;line-height:1.02;letter-spacing:-.03em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+    /* Each character sits in a cell as wide as its own resolved glyph, so line
+       breaks are fixed by the final text and random glyphs cannot reflow the block. */
+    .scramble-copy .w{display:inline-block;white-space:nowrap}
+    .scramble-copy .c{display:inline-block;text-align:center;transition:color .18s}
+    .scramble-copy .c.hot{color:var(--em)}
+    .scramble-action{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}.scramble-action .resolve{position:static}.scramble-note{color:var(--dim)}
     .plan{position:relative;z-index:2;padding:34px;opacity:0;transform:translateY(25px);filter:blur(8px);transition:opacity .75s .25s,transform .8s .25s,filter .8s .25s;pointer-events:none}.plan.in{opacity:1;transform:none;filter:none;pointer-events:auto}
-    .plan-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--line);padding-bottom:24px}.hello{font-size:clamp(28px,4vw,50px);font-weight:900;letter-spacing:-.04em}.date{text-align:right}.date b{display:block;color:var(--white)}
+    .plan-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--line);padding-bottom:24px}.hello{font-size:clamp(28px,4vw,50px);font-weight:900;letter-spacing:-.04em;line-height:1.04;margin-top:4px}.date{text-align:right}.date b{display:block;color:var(--white)}
     .priority-label{margin:26px 0 13px;display:flex;justify-content:space-between}.priority-label b{color:var(--em)}
     .priorities{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.priority{border:1px solid var(--line);padding:17px;background:rgba(20,22,31,.8);min-height:150px;opacity:0;transform:translateY(10px)}.plan.in .priority{animation:itemIn .5s forwards}.plan.in .priority:nth-child(2){animation-delay:.12s}.plan.in .priority:nth-child(3){animation-delay:.24s}
     @keyframes itemIn{to{opacity:1;transform:none}}.priority .tag{color:var(--em);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.12em}.priority h3{font-size:17px;line-height:1.2;margin:12px 0 8px;text-transform:uppercase}.priority p{font-size:12.5px;color:var(--slate)}
     .calendar{margin-top:18px;border-top:1px solid var(--line)}.slot{display:grid;grid-template-columns:74px 1fr auto;gap:16px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line);font-size:13px}.slot time{color:var(--dim);font-family:"IBM Plex Mono",monospace}.slot .event{color:var(--body)}.slot .event strong{color:var(--white)}.slot .pill{font:700 8px "IBM Plex Mono",monospace;color:var(--em);letter-spacing:.1em;border:1px solid rgba(var(--em-rgb),.25);padding:5px 7px}.slot.focus{background:linear-gradient(90deg,rgba(var(--em-rgb),.075),transparent);border-left:2px solid var(--em);padding-left:12px}
     .reset{position:absolute;right:18px;bottom:16px;z-index:4;color:var(--dim);border:0;background:none;font:500 9px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}.reset:hover{color:var(--white)}
     .workflow{display:grid;grid-template-columns:.84fr 1.16fr;gap:18px}.submit-card,.owner-card{border:1px solid var(--line);background:var(--surface);padding:24px;position:relative;overflow:hidden}.card-head{display:flex;justify-content:space-between;gap:15px;padding-bottom:20px;border-bottom:1px solid var(--line)}.card-head h3{font-size:22px;text-transform:uppercase;letter-spacing:-.03em}.status{font:700 8px "IBM Plex Mono",monospace;color:var(--em);letter-spacing:.1em;border:1px solid rgba(var(--em-rgb),.3);padding:6px 8px;height:max-content}
-    .field{padding:15px 0;border-bottom:1px solid var(--line)}.field label{display:block;color:var(--dim);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.13em;text-transform:uppercase}.field b{display:block;margin-top:4px;color:var(--body)}.hours{display:flex;justify-content:space-between}.hours strong{font-size:25px;color:var(--white)}
-    .submit-btn{width:100%;border:0;margin-top:20px;background:var(--em);color:var(--on-em);padding:13px;font:700 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+    .field{padding:15px 0;border-bottom:1px solid var(--line)}.field .lbl{display:block;color:var(--dim);font:500 9px "IBM Plex Mono",monospace;letter-spacing:.13em;text-transform:uppercase}.field b{display:block;margin-top:4px;color:var(--body)}.field .note{display:block;margin-top:4px;color:var(--slate);font-size:13px;font-weight:500}.hours{display:flex;justify-content:space-between;gap:16px}.hours strong{font-size:25px;color:var(--white)}
+    .checks{margin-top:18px;display:grid;gap:7px}.check{display:flex;gap:9px;align-items:baseline;font:500 11px "IBM Plex Mono",monospace;color:var(--dim);opacity:.3;transform:translateX(-4px);transition:.35s cubic-bezier(.18,.85,.24,1)}.check.done{opacity:1;transform:none;color:var(--body)}.check:before{content:"○";color:var(--dim)}.check.done:before{content:"✓";color:var(--em)}
+    .submit-btn{width:100%;border:0;margin-top:20px;background:var(--em);color:var(--on-em);padding:13px;font:700 10px "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase}.submit-btn:disabled{cursor:default;background:rgba(var(--em-rgb),.16);color:var(--em)}
     .owner-card{background:linear-gradient(145deg,#141720,#0d0f15)}.summary{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin:20px 0}.metric{background:var(--surface);padding:18px}.metric span{display:block;color:var(--dim);font:500 8px "IBM Plex Mono",monospace;letter-spacing:.11em;text-transform:uppercase}.metric b{display:block;font-size:29px;line-height:1;margin-top:9px}.contractor{display:grid;grid-template-columns:1fr auto;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);transition:opacity .4s,transform .4s}.contractor .name{font-weight:700}.contractor .detail{color:var(--slate);font-size:12px;margin-top:2px}.amount{text-align:right}.amount b{display:block}.amount span{font:700 8px "IBM Plex Mono",monospace;color:var(--em)}
     .flag{margin-top:18px;border-left:2px solid var(--em);padding:14px 16px;background:rgba(var(--em-rgb),.055)}.flag .mono{color:var(--em)}.flag p{font-size:13px;color:var(--slate);margin-top:6px}.flag strong{color:var(--white)}
-    .approved .contractor{opacity:.36;transform:translateX(8px)}.approved .status{background:var(--em);color:var(--on-em)}.success{position:absolute;inset:0;background:rgba(11,12,16,.94);display:grid;place-items:center;text-align:center;opacity:0;pointer-events:none;transition:opacity .5s}.approved .success{opacity:1;pointer-events:auto}.success b{display:block;font-size:52px;color:var(--em);line-height:1}.success h3{font-size:27px;margin:12px 0 4px}.success p{color:var(--slate)}
+    .approved .contractor:not(.hold){opacity:.36;transform:translateX(8px)}.approved .status{background:var(--em);color:var(--on-em);border-color:var(--em)}
+    .success{position:absolute;inset:0;background:rgba(9,11,16,.965);display:grid;place-items:center;text-align:center;padding:24px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .5s,visibility .5s}.approved .success{opacity:1;visibility:visible;pointer-events:auto}.success b{display:block;font-size:52px;color:var(--em);line-height:1}.success h3{font-size:27px;margin:12px 0 4px}.success p{color:var(--slate)}.success .held{margin-top:14px;color:var(--em);font:700 9px "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(var(--em-rgb),.3);padding:8px 11px;display:inline-block}
     .principle{border-left:2px solid var(--em);padding:6px 0 6px 20px;margin-top:28px;color:var(--slate)}.principle strong{color:var(--white)}
     .meeting-stage{border:1px solid var(--line);background:linear-gradient(145deg,#131925,#0b0e14);overflow:hidden}.meeting-command{display:flex;align-items:center;gap:14px;padding:18px;border-bottom:1px solid var(--line)}.meeting-command .prompt{flex:1;border:1px solid var(--line);border-radius:100px;padding:14px 20px;color:var(--body);background:var(--black)}.meeting-command .prompt b{color:var(--white)}
     .prepare{width:46px;height:46px;border-radius:50%;border:0;background:var(--em);color:var(--on-em);font-size:20px}.meeting-body{display:grid;grid-template-columns:.75fr 1.25fr;min-height:460px}.trace{padding:27px;border-right:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--dim)}.trace h3{font-family:Archivo,sans-serif;font-size:22px;color:var(--white);text-transform:uppercase;margin-bottom:22px}.trace-line{padding:10px 0;border-bottom:1px solid rgba(36,44,57,.62);opacity:.25;transform:translateX(-5px);transition:.4s}.trace-line.done{opacity:1;transform:none;color:var(--body)}.trace-line.done:before{content:"✓ ";color:var(--em)}
     .brief{padding:29px;opacity:.2;filter:blur(5px);transform:translateY(10px);transition:.7s}.brief.ready{opacity:1;filter:none;transform:none}.brief-top{display:flex;justify-content:space-between;gap:18px;padding-bottom:20px;border-bottom:1px solid var(--line)}.brief-top h3{font-size:30px;letter-spacing:-.04em}.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.brief-box{border:1px solid var(--line);padding:17px;background:rgba(17,21,29,.72)}.brief-box .mono{color:var(--em);margin-bottom:7px}.brief-box p{color:var(--slate);font-size:13px}.brief-box strong{color:var(--white)}.brief-box.full{grid-column:1/-1}.talking{margin-top:9px;padding-left:16px;color:var(--body);font-size:13px}.talking li+li{margin-top:6px}
     .cap-table{border-top:1px solid var(--line)}.cap-row{display:grid;grid-template-columns:.75fr 1fr 1.15fr .75fr;gap:22px;padding:27px 0;border-bottom:1px solid var(--line);align-items:start}.cap-row:not(.head){opacity:.18;transform:translateY(18px);filter:blur(4px);transition:.65s cubic-bezier(.18,.85,.24,1)}.cap-table.play .cap-row:not(.head){opacity:1;transform:none;filter:none}.cap-table.play .cap-row:nth-child(3){transition-delay:.13s}.cap-table.play .cap-row:nth-child(4){transition-delay:.26s}.cap-row.head{padding:12px 0}.cap-row.head div{font:500 9px "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--dim);text-transform:uppercase}.cap-row h3{font-size:19px;line-height:1.1;text-transform:uppercase}.cap-row p{color:var(--slate);font-size:13.5px}.cap-row strong{color:var(--body)}.output-chip{display:inline-block;color:var(--em);border:1px solid rgba(var(--em-rgb),.28);padding:6px 8px;font:700 8px "IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase}
+    .cap-label{display:none;font:500 9px "IBM Plex Mono",monospace;letter-spacing:.13em;color:var(--dim);text-transform:uppercase;margin-bottom:6px}
     .final-product{border:1px solid var(--line);padding:clamp(28px,6vw,64px);background:radial-gradient(circle at 80% 20%,rgba(var(--em-rgb),.11),transparent 38%),var(--surface)}.final-product h2{max-width:800px}.final-product .lede{margin-bottom:26px}.product-points{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin:34px 0}.product-point{padding:20px}.product-point+.product-point{border-left:1px solid var(--line)}.product-point b{display:block;font-size:18px}.product-point span{display:block;color:var(--slate);font-size:12.5px;margin-top:5px}
     footer{border-top:1px solid var(--line);padding:50px 32px 100px;max-width:1200px;margin:auto}
-    @media(max-width:900px){.hero-foot,.sec,.workflow,.meeting-body{grid-template-columns:1fr}.rail .inner{position:static}.rail{display:flex;gap:18px;align-items:center}.rt{margin:0}.stage{min-height:700px}.priorities{grid-template-columns:1fr}.priority{min-height:0}.plan{padding:24px}.page{padding:0 22px}.trace{border-right:0;border-bottom:1px solid var(--line)}.cap-row{grid-template-columns:1fr 1fr}.cap-row.head{display:none}.product-points{grid-template-columns:1fr}.product-point+.product-point{border-left:0;border-top:1px solid var(--line)}}
-    @media(max-width:560px){.mast-in{padding:12px 18px}.nav{display:none}.page{padding:0 18px}.hero{padding:90px 0 70px;min-height:64vh}section{padding:68px 0}.stage{min-height:790px}.plan-top{display:block}.date{text-align:left;margin-top:8px}.slot{grid-template-columns:58px 1fr}.slot .pill{display:none}.fragment{font-size:9px}.workflow{gap:12px}.submit-card,.owner-card{padding:19px}}
-    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.fragment{animation:none}}
+    @media(max-width:900px){.hero-foot,.sec,.workflow,.meeting-body{grid-template-columns:1fr}.rail .inner{position:static}.rail{display:flex;gap:18px;align-items:center}.rt{margin:0}.stage{min-height:700px}.priorities{grid-template-columns:1fr}.priority{min-height:0}.plan{padding:24px}.page{padding:0 22px}.trace{border-right:0;border-bottom:1px solid var(--line)}.product-points{grid-template-columns:1fr}.product-point+.product-point{border-left:0;border-top:1px solid var(--line)}
+      /* Stacked capability cards: the header row is gone, so each cell states its own role. */
+      .cap-row{grid-template-columns:1fr;gap:18px;padding:24px 0}.cap-row.head{display:none}.cap-label{display:block}.cap-row h3{font-size:22px}}
+    @media(max-width:560px){.mast-in{padding:12px 18px;gap:12px}.nav,.mast .build{display:none}.page{padding:0 18px}.hero{padding:90px 0 70px;min-height:64vh}section{padding:68px 0}.stage{min-height:760px}.plan-top{display:block}.date{text-align:left;margin-top:8px}.slot{grid-template-columns:58px 1fr}.slot .pill{display:none}.workflow{gap:12px}.submit-card,.owner-card{padding:19px}.scramble-scene{padding:26px 22px}.summary{grid-template-columns:1fr}.metric b{font-size:25px}}
+    @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
-  <header class="mast"><div class="mast-in"><div class="brand">AI AT WORK<i>.</i></div><div class="mono" style="color:var(--em)">Final build · 03</div><nav class="nav"><a href="#plan">01</a><a href="#payments">02</a><a href="#meeting">03</a><a href="#more">04</a></nav><a class="cta" href="#plan">Watch the day</a></div></header>
+  <header class="mast"><div class="mast-in"><div class="brand">AI AT WORK<i>.</i></div><div class="mono build" style="color:var(--em)">A working day · demonstration</div><nav class="nav" aria-label="Sections"><a href="#plan">01</a><a href="#payments">02</a><a href="#meeting">03</a><a href="#more">04</a></nav><a class="cta" href="#plan">Watch the day</a></div></header>
   <main>
     <div class="page"><div class="hero"><div class="kicker mono">A day in the life · business owner</div><h1><span class="outline">Your day.</span><br>Working <span class="v">with you.</span></h1><div class="hero-foot"><div class="lead">Not another list of things AI could do. <span class="v">Watch the work leave Christian's plate.</span></div><p>One business owner. One real working day. Each section reveals a system that turns operational friction into <strong>clear, finished work.</strong></p></div></div></div>
 
     <section id="plan"><div class="page"><div class="sec"><aside class="rail"><div class="inner"><div class="no">01</div><div class="rt mono">The morning<br><span>chaos → execution</span></div></div></aside><div class="content"><h2>Everything that matters.<br><span class="v">In the right order.</span></h2><p class="lede">Emails, deadlines, decisions, and meetings arrive tangled together. AI reads the signals, finds the highest-impact work, and <strong>builds the day around what moves the business.</strong></p>
       <div class="stage" id="dayStage">
-        <div class="chaos" id="chaos"><div class="scramble-scene"><div class="scramble-kicker mono">Unsorted · Tuesday morning</div><div class="scramble-copy" id="scrambleText" aria-live="off">17 unread emails. 3 approvals. 6 meetings. 2 conflicts. 1 overdue invoice.</div><div class="scramble-action"><button class="resolve" id="resolveDay">Organize my day →</button><span class="scramble-note mono">Watch the work resolve</span></div></div></div>
+        <div class="chaos" id="chaos"><div class="scramble-scene"><div class="scramble-kicker mono">Unsorted · Tuesday morning</div><p class="sr-only">Unsorted: 17 unread emails. 3 approvals. 6 meetings. 2 conflicts. 1 overdue invoice.</p><div class="scramble-copy" id="scrambleText" aria-hidden="true">17 unread emails. 3 approvals. 6 meetings. 2 conflicts. 1 overdue invoice.</div><div class="scramble-action"><button class="resolve" id="resolveDay">Organize my day →</button><span class="scramble-note mono">Watch the work resolve</span></div></div></div>
         <div class="plan" id="dailyPlan" aria-live="polite"><div class="plan-top"><div><div class="mono">Daily operating plan</div><div class="hello">Good morning, Christian<span class="v">.</span></div></div><div class="date mono"><b>Tuesday · August 18</b>First meeting in 48 minutes</div></div><div class="priority-label mono"><span>Highest-impact work</span><b>Start here</b></div><div class="priorities"><article class="priority"><div class="tag">01 · Decision</div><h3>Approve Lakeshore estimate</h3><p>Approval by 9:30 keeps Thursday's installation on schedule.</p></article><article class="priority"><div class="tag">02 · Prepare</div><h3>Rivera meeting brief</h3><p>Review the accelerated launch recommendation before the 10:30 call.</p></article><article class="priority"><div class="tag">03 · Resolve</div><h3>Invoice #1048</h3><p>Payment is holding up the contractor's next phase.</p></article></div><div class="calendar"><div class="slot focus"><time>8:15</time><div class="event"><strong>Approve Lakeshore estimate</strong></div><span class="pill">2 min</span></div><div class="slot"><time>8:30</time><div class="event">Rivera meeting preparation</div><span class="pill">Brief ready</span></div><div class="slot focus"><time>9:00</time><div class="event"><strong>Focus block — finish proposal</strong></div><span class="pill">Protected</span></div><div class="slot"><time>10:30</time><div class="event">Rivera client meeting</div><span class="pill">45 min</span></div><div class="slot"><time>12:00</time><div class="event">Lunch with Anthony</div><span class="pill">Personal</span></div><div class="slot"><time>2:30</time><div class="event">Lakeshore walkthrough</div><span class="pill">Travel added</span></div><div class="slot"><time>4:00</time><div class="event">Tomorrow's team priorities</div><span class="pill">30 min</span></div></div></div><button class="reset" id="replayDay">↻ Replay transformation</button>
       </div>
     </div></div></div></section>
 
     <section id="payments"><div class="page"><div class="sec"><aside class="rail"><div class="inner"><div class="no">02</div><div class="rt mono">Contractor pay<br><span>submit → check → approve</span></div></div></aside><div class="content"><h2>They submit the work.<br><span class="v">You approve the payment.</span></h2><p class="lede">No text-message time cards. No spreadsheet math. No chasing missing details. One contractor portal collects the work, checks every submission, and brings Christian <strong>only what needs a decision.</strong></p>
-      <div class="workflow"><article class="submit-card"><div class="card-head"><div><div class="mono">Contractor portal</div><h3>Submit this week</h3></div><span class="status">Ready</span></div><div class="field"><label>Contractor</label><b>Jordan Reed</b></div><div class="field"><label>Project</label><b>Lakeshore · Electrical installation</b></div><div class="field"><label>Week ending</label><b>August 21, 2026</b></div><div class="field hours"><div><label>Hours</label><strong>19.5</strong></div><div><label>Receipts</label><strong>03</strong></div></div><button class="submit-btn" id="submitHours">Submit for approval →</button></article>
-      <article class="owner-card" id="ownerCard"><div class="card-head"><div><div class="mono">Christian's approval view</div><h3>Weekly payout</h3></div><span class="status">1 review</span></div><div class="summary"><div class="metric"><span>Ready to approve</span><b>$3,825</b></div><div class="metric"><span>Total hours</span><b>60.5</b></div></div><div class="contractor"><div><div class="name">Jordan Reed</div><div class="detail">Lakeshore · 19.5 hours</div></div><div class="amount"><b>$1,365</b><span>Verified</span></div></div><div class="contractor"><div><div class="name">Maya Torres</div><div class="detail">Rivera · 24 hours</div></div><div class="amount"><b>$1,440</b><span>Verified</span></div></div><div class="contractor"><div><div class="name">Anthony Lewis</div><div class="detail">Oak Street · 17 hours</div></div><div class="amount"><b>$1,020</b><span>Review</span></div></div><div class="flag"><div class="mono">One item needs you</div><p>Anthony submitted <strong>5 additional hours</strong>. His note says wall repair was required after demolition.</p></div><button class="submit-btn" id="approvePay">Approve ready payments →</button><div class="success"><div><b>✓</b><h3>$3,825 approved.</h3><p>Records updated. Contractors notified.</p></div></div></article></div><div class="principle"><strong>The principle:</strong> AI prepares, checks, and organizes the payment. Christian retains approval.</div>
+      <div class="workflow"><article class="submit-card"><div class="card-head"><div><div class="mono">Contractor portal</div><h3>Submit this week</h3></div><span class="status" id="submitStatus">Ready</span></div><div class="field"><span class="lbl">Contractor</span><b>Jordan Reed</b></div><div class="field"><span class="lbl">Project</span><b>Lakeshore · Electrical installation</b></div><div class="field"><span class="lbl">Week ending</span><b>August 21, 2026</b></div><div class="field"><span class="lbl">Work completed</span><span class="note">Rough-in wiring for units 3 and 4, panel relocation, and fixture prep for Thursday's inspection.</span></div><div class="field hours"><div><span class="lbl">Hours</span><strong>19.5</strong></div><div><span class="lbl">Receipts</span><strong>03</strong></div></div><div class="checks" id="submitChecks" aria-live="polite"><div class="check">Hours matched to scheduled work</div><div class="check">3 receipts attached and itemized</div><div class="check">Rate confirmed against agreement</div></div><button class="submit-btn" id="submitHours">Submit for approval →</button></article>
+      <article class="owner-card" id="ownerCard"><div class="card-head"><div><div class="mono">Christian's approval view</div><h3>Weekly payout</h3></div><span class="status">1 review</span></div><div class="summary"><div class="metric"><span>Ready to approve</span><b>$2,805</b></div><div class="metric"><span>Held for review</span><b>$1,020</b></div></div><div class="contractor"><div><div class="name">Jordan Reed</div><div class="detail">Lakeshore · 19.5 hours</div></div><div class="amount"><b>$1,365</b><span>Verified</span></div></div><div class="contractor"><div><div class="name">Maya Torres</div><div class="detail">Rivera · 24 hours</div></div><div class="amount"><b>$1,440</b><span>Verified</span></div></div><div class="contractor hold"><div><div class="name">Anthony Lewis</div><div class="detail">Oak Street · 17 hours</div></div><div class="amount"><b>$1,020</b><span>Review</span></div></div><div class="flag"><div class="mono">One item needs you</div><p>Anthony submitted <strong>5 additional hours</strong>. His note says wall repair was required after demolition.</p></div><button class="submit-btn" id="approvePay">Approve ready payments →</button><div class="success"><div><b>✓</b><h3>$2,805 approved.</h3><p>Records updated. Contractors notified.</p><div class="held">$1,020 still waiting on Christian</div></div></div></article></div><div class="principle"><strong>The principle:</strong> AI prepares, checks, and organizes the payment. Christian retains approval. Weekly total: 60.5 hours across three contractors.</div>
     </div></div></div></section>
 
     <section id="meeting"><div class="page"><div class="sec"><aside class="rail"><div class="inner"><div class="no">03</div><div class="rt mono">First meeting<br><span>context → confidence</span></div></div></aside><div class="content"><h2>Walk into the room.<br><span class="v">Already prepared.</span></h2><p class="lede">AI gathers the relationship history, open commitments, current project status, and the decision that matters—then turns it into <strong>one clear pre-meeting brief.</strong></p>
       <div class="meeting-stage"><div class="meeting-command"><div class="prompt">Prepare me for my <b>10:30 Rivera meeting</b></div><button class="prepare" id="prepareMeeting" aria-label="Prepare meeting brief">→</button></div><div class="meeting-body"><div class="trace"><h3>Building the brief<span class="v">.</span></h3><div class="trace-line">18 emails reviewed</div><div class="trace-line">Original proposal located</div><div class="trace-line">2 previous meetings summarized</div><div class="trace-line">Open commitments checked</div><div class="trace-line">Timeline risk identified</div></div><article class="brief" id="meetingBrief"><div class="brief-top"><div><div class="mono">Pre-meeting brief · 10:30</div><h3>Rivera launch review</h3></div><span class="status">4 min read</span></div><div class="brief-grid"><div class="brief-box"><div class="mono">What changed</div><p>The requested launch date moved forward by <strong>nine days.</strong></p></div><div class="brief-box"><div class="mono">What is at risk</div><p>Final design approval is still outstanding and blocks production.</p></div><div class="brief-box full"><div class="mono">Recommended position</div><p>Offer the accelerated timeline only if Rivera approves final design by <strong>Wednesday at noon.</strong></p></div><div class="brief-box full"><div class="mono">Talking points</div><ul class="talking"><li>Confirm the business reason behind the earlier launch.</li><li>Set Wednesday approval as the non-negotiable gate.</li><li>Leave with one owner and one deadline for every open item.</li></ul></div></div></article></div></div><div class="principle"><strong>The principle:</strong> AI reconstructs the context. Christian leads the conversation.</div>
     </div></div></div></section>
 
-    <section id="more"><div class="page"><div class="sec"><aside class="rail"><div class="inner"><div class="no">04</div><div class="rt mono">Beyond the demo<br><span>problem → finished work</span></div></div></aside><div class="content"><h2>And the rest of the work<br><span class="v">doesn't stay manual.</span></h2><p class="lede">Not every capability needs another simulation. Here is the business problem, what AI changes, and <strong>what Christian receives at the end.</strong></p><div class="cap-table"><div class="cap-row head"><div>Domain</div><div>The situation</div><div>AI solution</div><div>Finished output</div></div><div class="cap-row"><h3>Docs &amp; proposals</h3><p>Ideas live in scattered notes, voice memos, and old documents.</p><p>AI structures the source material, drafts the document, and adapts it to Christian's voice.</p><div><span class="output-chip">Client-ready proposal</span></div></div><div class="cap-row"><h3>Strategy &amp; synthesis</h3><p>Daily execution leaves little time to research options or think ahead.</p><p>AI compares competitors, tests scenarios, and organizes the evidence behind a decision.</p><div><span class="output-chip">Decision roadmap</span></div></div><div class="cap-row"><h3>Follow-through</h3><p>Decisions disappear across meetings, messages, and informal promises.</p><p>AI captures the commitment, assigns the next step, and prepares the right follow-up.</p><div><span class="output-chip">Action plan</span></div></div></div></div></div></div></section>
+    <section id="more"><div class="page"><div class="sec"><aside class="rail"><div class="inner"><div class="no">04</div><div class="rt mono">Beyond the demo<br><span>problem → finished work</span></div></div></aside><div class="content"><h2>And the rest of the work<br><span class="v">doesn't stay manual.</span></h2><p class="lede">Not every capability needs another simulation. Here is the business problem, what AI changes, and <strong>what Christian receives at the end.</strong></p><div class="cap-table"><div class="cap-row head"><div>Domain</div><div>The situation</div><div>AI solution</div><div>Finished output</div></div><div class="cap-row"><h3>Docs &amp; proposals</h3><div><div class="cap-label">The situation</div><p>Ideas live in scattered notes, voice memos, and old documents.</p></div><div><div class="cap-label">AI solution</div><p>AI structures the source material, drafts the document, and adapts it to Christian's voice.</p></div><div><div class="cap-label">Finished output</div><span class="output-chip">Client-ready proposal</span></div></div><div class="cap-row"><h3>Strategy &amp; synthesis</h3><div><div class="cap-label">The situation</div><p>Daily execution leaves little time to research options or think ahead.</p></div><div><div class="cap-label">AI solution</div><p>AI compares competitors, tests scenarios, and organizes the evidence behind a decision.</p></div><div><div class="cap-label">Finished output</div><span class="output-chip">Decision roadmap</span></div></div><div class="cap-row"><h3>Follow-through</h3><div><div class="cap-label">The situation</div><p>Decisions disappear across meetings, messages, and informal promises.</p></div><div><div class="cap-label">AI solution</div><p>AI captures the commitment, assigns the next step, and prepares the right follow-up.</p></div><div><div class="cap-label">Finished output</div><span class="output-chip">Action plan</span></div></div></div></div></div></div></section>
 
     <section id="product"><div class="page"><div class="final-product"><div class="mono">The product · built around Christian's business</div><h2>Not more software.<br><span class="v">A working operating layer.</span></h2><p class="lede">One connected AI system that helps Christian plan the day, run repeatable workflows, enter meetings prepared, and turn unfinished information into finished work.</p><div class="product-points"><div class="product-point"><b>Sees the full day.</b><span>Priorities, meetings, deadlines, and operational risk.</span></div><div class="product-point"><b>Prepares the work.</b><span>Briefs, approvals, documents, and follow-ups.</span></div><div class="product-point"><b>Keeps Christian in control.</b><span>AI organizes and recommends. Christian decides.</span></div></div><a class="cta" href="#plan">See the day again ↑</a></div></div></section>
   </main>
@@ -91,39 +99,173 @@
   <script>
     (function(){
       const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const delay=function(ms){return reduce?0:ms};
+
+      /* ---------- 01 · Morning plan ---------- */
       const chaos=document.getElementById('chaos'),plan=document.getElementById('dailyPlan');
-      const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%';
       const scrambleEl=document.getElementById('scrambleText');
-      const finalText=scrambleEl.textContent;
-      let timer=null,runToken=0;
-      function scramble(thenResolve){
-        clearInterval(timer);runToken++;const token=runToken;let frame=0;
-        timer=setInterval(function(){
-          const locked=thenResolve?Math.floor(frame/1.55):Math.max(0,Math.floor((Math.sin(frame/13)+1)*finalText.length*.13));
-          scrambleEl.textContent=finalText.split('').map(function(c,i){if(c===' '||c==='.')return c;return i<locked?c:chars[Math.floor(Math.random()*chars.length)]}).join('');
-          frame++;
-          if(thenResolve&&locked>=finalText.length){clearInterval(timer);timer=null;scrambleEl.textContent=finalText;if(token===runToken)setTimeout(showPlan,260)}
-        },42)
+      const finalText=scrambleEl.textContent.trim();
+      const GLYPHS='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@$%';
+      const REVEAL_MS=1900,HOLD_MS=260,CHURN_MS=55,HOT=5;
+      let cells=[],state='idle',raf=null,holdTimer=null,replayTimer=null,startedAt=0,lastChurn=0;
+      let ready=false,pendingResolve=false;
+
+      /* Give every character a cell as wide as its own resolved glyph. Line breaks are
+         then fixed by the final sentence, so random glyphs cannot reflow the block. */
+      function buildCells(){
+        const cs=getComputedStyle(scrambleEl);
+        const ctx=document.createElement('canvas').getContext('2d');
+        ctx.font=cs.fontStyle+' '+cs.fontWeight+' 100px '+cs.fontFamily;
+        const cache=new Map();
+        const widthEm=function(ch){
+          if(!cache.has(ch))cache.set(ch,ctx.measureText(ch).width/100);
+          return cache.get(ch);
+        };
+        /* Each cell draws only from glyphs narrow enough to sit inside it, so a random
+           character can never spill over its neighbour. */
+        const sorted=Array.from(GLYPHS).map(function(g){return{g:g,w:widthEm(g)}}).sort(function(a,b){return a.w-b.w});
+        const poolFor=function(cw){
+          const fit=sorted.filter(function(p){return p.w<=cw+.1}).map(function(p){return p.g});
+          return fit.length>=6?fit:sorted.slice(0,6).map(function(p){return p.g});
+        };
+        scrambleEl.textContent='';cells=[];
+        const words=finalText.split(' ');
+        words.forEach(function(word,wi){
+          const w=document.createElement('span');w.className='w';
+          Array.from(word).forEach(function(ch){
+            const c=document.createElement('span');c.className='c';
+            const cw=Math.max(widthEm(ch.toUpperCase()),.6);
+            c.style.width=cw.toFixed(3)+'em';
+            c.textContent=ch;
+            w.appendChild(c);
+            cells.push({el:c,ch:ch,fixed:!/[A-Za-z0-9]/.test(ch),hot:false,pool:poolFor(cw)});
+          });
+          scrambleEl.appendChild(w);
+          if(wi<words.length-1)scrambleEl.appendChild(document.createTextNode(' '));
+        });
       }
+
+      function paint(locked,churn){
+        for(let i=0;i<cells.length;i++){
+          const cell=cells[i];
+          if(cell.fixed||i<locked){
+            if(cell.el.textContent!==cell.ch)cell.el.textContent=cell.ch;
+            if(cell.hot){cell.el.classList.remove('hot');cell.hot=false}
+          }else{
+            if(churn)cell.el.textContent=cell.pool[(Math.random()*cell.pool.length)|0];
+            const hot=locked>0&&i<locked+HOT;
+            if(hot!==cell.hot){cell.el.classList.toggle('hot',hot);cell.hot=hot}
+          }
+        }
+      }
+      function settle(){cells.forEach(function(c){c.el.textContent=c.ch;c.el.classList.remove('hot');c.hot=false})}
+
+      function frame(now){
+        const churn=now-lastChurn>=CHURN_MS;
+        if(churn)lastChurn=now;
+        if(state==='idle'){paint(0,churn);raf=requestAnimationFrame(frame);return}
+        const t=Math.min(1,(now-startedAt)/REVEAL_MS);
+        const eased=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+        paint(Math.round(eased*cells.length),churn);
+        if(t<1){raf=requestAnimationFrame(frame);return}
+        raf=null;state='done';settle();
+        holdTimer=setTimeout(showPlan,HOLD_MS);
+      }
+
+      function stop(){if(raf)cancelAnimationFrame(raf);raf=null;clearTimeout(holdTimer);holdTimer=null}
+      function idle(){stop();state='idle';lastChurn=0;if(reduce)settle();else raf=requestAnimationFrame(frame)}
       function showPlan(){chaos.classList.add('out');plan.classList.add('in')}
-      function resolve(){if(reduce){showPlan();return}scramble(true)}
-      function replay(){clearInterval(timer);plan.classList.remove('in');chaos.classList.remove('out');scrambleEl.textContent=finalText;if(!reduce)scramble(false)}
-      document.getElementById('resolveDay').addEventListener('click',resolve);document.getElementById('replayDay').addEventListener('click',replay);
-      if(reduce)scrambleEl.textContent=finalText;else scramble(false);
-      const submitHours=document.getElementById('submitHours'),approvePay=document.getElementById('approvePay'),ownerCard=document.getElementById('ownerCard');
-      function submitDemo(){submitHours.textContent='Checking submission…';setTimeout(function(){submitHours.textContent='Submitted ✓';submitHours.disabled=true},750)}
-      function approveDemo(){ownerCard.classList.add('approved')}
-      submitHours.addEventListener('click',submitDemo);approvePay.addEventListener('click',approveDemo);
-      const prepare=document.getElementById('prepareMeeting'),brief=document.getElementById('meetingBrief'),traceLines=document.querySelectorAll('.trace-line');
-      function prepareDemo(){if(prepare.disabled)return;prepare.disabled=true;prepare.textContent='…';traceLines.forEach(function(line,i){setTimeout(function(){line.classList.add('done');if(i===traceLines.length-1){setTimeout(function(){brief.classList.add('ready');prepare.textContent='✓'},250)}},i*430)})}
+      function resolveDay(){
+        if(!ready){pendingResolve=true;return}
+        if(state!=='idle')return;
+        if(reduce){state='done';settle();showPlan();return}
+        stop();state='resolving';startedAt=performance.now();lastChurn=0;raf=requestAnimationFrame(frame);
+      }
+      function replay(){
+        plan.classList.remove('in');chaos.classList.remove('out');
+        idle();
+        clearTimeout(replayTimer);
+        replayTimer=setTimeout(resolveDay,delay(900));
+      }
+      document.getElementById('resolveDay').addEventListener('click',resolveDay);
+      document.getElementById('replayDay').addEventListener('click',replay);
+
+      /* ---------- 02 · Contractor workflow ---------- */
+      const submitBtn=document.getElementById('submitHours'),submitStatus=document.getElementById('submitStatus');
+      const checks=Array.prototype.slice.call(document.querySelectorAll('#submitChecks .check'));
+      const ownerCard=document.getElementById('ownerCard'),approveBtn=document.getElementById('approvePay');
+      let submitState='idle';
+      function submitDemo(){
+        if(submitState!=='idle')return;
+        submitState='checking';
+        submitBtn.disabled=true;submitBtn.textContent='Checking submission…';submitStatus.textContent='Checking';
+        checks.forEach(function(check,i){
+          setTimeout(function(){
+            check.classList.add('done');
+            if(i===checks.length-1){
+              submitBtn.textContent='Submitted ✓';submitStatus.textContent='Submitted';submitState='done';
+            }
+          },delay(340)*(i+1));
+        });
+      }
+      function approveDemo(){
+        if(ownerCard.classList.contains('approved'))return;
+        ownerCard.classList.add('approved');
+        approveBtn.disabled=true;approveBtn.textContent='Approved ✓';
+      }
+      submitBtn.addEventListener('click',submitDemo);
+      approveBtn.addEventListener('click',approveDemo);
+
+      /* ---------- 03 · Meeting brief ---------- */
+      const prepare=document.getElementById('prepareMeeting'),brief=document.getElementById('meetingBrief');
+      const traceLines=Array.prototype.slice.call(document.querySelectorAll('.trace-line'));
+      let meetingState='idle';
+      function prepareDemo(){
+        if(meetingState!=='idle')return;
+        meetingState='running';
+        prepare.disabled=true;prepare.textContent='…';
+        traceLines.forEach(function(line,i){
+          setTimeout(function(){
+            line.classList.add('done');
+            if(i===traceLines.length-1){
+              setTimeout(function(){brief.classList.add('ready');prepare.textContent='✓';meetingState='done'},delay(260));
+            }
+          },delay(400)*(i+1));
+        });
+      }
       prepare.addEventListener('click',prepareDemo);
-      if(!reduce&&'IntersectionObserver' in window){
-        function once(id,threshold,fn){const el=document.getElementById(id);const io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){io.disconnect();fn()}})},{threshold:threshold});io.observe(el)}
-        once('plan',.28,function(){setTimeout(resolve,1050)});
-        once('payments',.3,function(){setTimeout(submitDemo,650);setTimeout(approveDemo,2300)});
-        once('meeting',.3,function(){setTimeout(prepareDemo,650)});
-        once('more',.22,function(){document.querySelector('.cap-table').classList.add('play')});
-      }else{document.querySelector('.cap-table').classList.add('play')}
+
+      /* ---------- Autoplay ----------
+         Each observer watches the demo itself, not the whole section, so a demo never
+         plays out while it is still below the fold. The negative bottom margin fires
+         once the demo's top edge has climbed into view, which behaves the same for a
+         short desktop card and a tall stacked mobile one — a percentage threshold does
+         not. Under reduced motion the same triggers apply with every delay at zero, so
+         the finished state simply appears. */
+      const capTable=document.querySelector('.cap-table');
+      if('IntersectionObserver' in window){
+        const once=function(el,fn){
+          if(!el)return;
+          const io=new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){if(entry.isIntersecting){io.disconnect();fn()}});
+          },{rootMargin:'0px 0px -22% 0px'});
+          io.observe(el);
+        };
+        once(document.getElementById('dayStage'),function(){setTimeout(resolveDay,delay(700))});
+        once(document.querySelector('.workflow'),function(){setTimeout(submitDemo,delay(500));setTimeout(approveDemo,delay(2600))});
+        once(document.querySelector('.meeting-stage'),function(){setTimeout(prepareDemo,delay(500))});
+        once(capTable,function(){capTable.classList.add('play')});
+      }else{
+        resolveDay();submitDemo();approveDemo();prepareDemo();capTable.classList.add('play');
+      }
+
+      /* Measure cells only once the display face is really available, so the cell widths
+         match Archivo rather than the fallback. */
+      function init(){
+        buildCells();ready=true;
+        if(pendingResolve){pendingResolve=false;idle();resolveDay()}else idle();
+      }
+      if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);else init();
     })();
   </script>
 </body>

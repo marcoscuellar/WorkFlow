@@ -10,6 +10,16 @@ business owner through one real working day. No build step, no dependencies: ope
 |---|---|
 | `christian-ai-day-final-v3.html` | The page. HTML, CSS and JS in one file. |
 | `CLAUDE_CODE_HANDOVER_AI_AT_WORK.md` | The specification this build is verified against. |
+| `vercel.json` | Serves the page at `/` without renaming it. |
+
+## Deploying
+
+There is no build step. The repo root is the static output, and `vercel.json` rewrites
+`/` to `christian-ai-day-final-v3.html` so the page loads at the bare domain.
+
+On Vercel, the project needs **no framework preset and no build command** — "Other" with
+the output directory left empty. Check too that the project's *production branch* matches
+this repo's default branch, otherwise pushes here only produce preview deployments.
 
 ## Preserved baseline
 

@@ -42,7 +42,10 @@ Remaining capabilities are editorial rows (situation → AI solution → finishe
 followed by the product positioning section.
 
 Every demo autoplays once when it scrolls into view and stays manually triggerable for
-presentation use. Section 01 also has a replay control.
+presentation use. Each demo also holds its "before" state long enough to be read before
+it resolves. Section 01 has a replay control, and section 02 has a **back** control — its
+success panel covers the contractor list and the flagged exception, which is the point of
+that section, so the viewer can always return to it and approve again.
 
 ## How the scramble works
 

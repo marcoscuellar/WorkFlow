@@ -10,16 +10,32 @@ business owner through one real working day. No build step, no dependencies: ope
 |---|---|
 | `christian-ai-day-final-v3.html` | The page. HTML, CSS and JS in one file. |
 | `CLAUDE_CODE_HANDOVER_AI_AT_WORK.md` | The specification this build is verified against. |
-| `vercel.json` | Serves the page at `/` without renaming it. |
+| `vercel.json` | Serves the page on every path without renaming it. |
 
 ## Deploying
 
 There is no build step. The repo root is the static output, and `vercel.json` rewrites
-`/` to `christian-ai-day-final-v3.html` so the page loads at the bare domain.
+every path to `christian-ai-day-final-v3.html`, so the page loads at the bare domain and
+a mistyped or stale link can never land on a 404.
 
 On Vercel, the project needs **no framework preset and no build command** — "Other" with
-the output directory left empty. Check too that the project's *production branch* matches
-this repo's default branch, otherwise pushes here only produce preview deployments.
+the output directory left empty.
+
+Two settings decide whether anyone outside the Vercel account can open the site. Both
+live in the Vercel project, not in this repo, so a green build here is not proof the link
+works:
+
+- **Settings → Git → Production Branch** must name a branch that actually exists here.
+  Vercel only serves the short `*.vercel.app` domain from a *production* deployment; if
+  this field names a missing branch, every push produces a preview instead and the short
+  domain returns `DEPLOYMENT_NOT_FOUND`.
+- **Settings → Deployment Protection → Vercel Authentication** gates preview deployments
+  by default, and gates production too under *Standard Protection*. A protected URL shows
+  a Vercel sign-in screen to a logged-out visitor rather than the page. Turn it off to
+  share the link outside the account.
+
+Send external viewers the bare production domain. Preview URLs are branch-scoped,
+protected by default, and go stale on the next push.
 
 ## Preserved baseline
 
